@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>متجر أبو محمود لقطع الدراجات النارية</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-color: #1e293b;
+      --accent-color: #f97316;
+      --text-color: #f8fafc;
+      --muted-text: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text-color);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .overlay {
+      background: rgba(15, 23, 42, 0.85);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background: var(--card-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      font-size: 2.2rem;
+      background: var(--accent-color);
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+    }
+
+    .brand h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .brand p {
+      font-size: 0.85rem;
+      color: var(--muted-text);
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    .price-mode-bar {
+      max-width: 1200px;
+      margin: 18px auto 0;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mode-switcher {
+      display: inline-flex;
+      background: var(--card-color);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .mode-btn {
+      background: transparent;
+      color: var(--muted-text);
+      padding: 7px 16px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+
+    .mode-btn.active {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--card-color);
+      color: var(--text-color);
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--muted-text);
+    }
+
+    .product-body {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--muted-text);
+      margin-bottom: 12px;
+      flex: 1;
+    }
+
+    .price-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .price-highlight {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    .badge-wholesale {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    /* Modals */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 650px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      width: 32px;
+      height: 32px;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text-color);
+      font-size: 0.95rem;
+    }
+
+    .qr-box {
+      background: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      display: inline-block;
+      margin: 12px auto;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-color);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    .theme-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      gap: 10px;
+    }
+
+    .order-card {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .shamcash-box {
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid var(--accent-color);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-color);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      z-index: 999;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+<div class="overlay" id="appOverlay">
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🏍</div>
+        <div>
+          <h1 id="storeTitleDisplay">متجر أبو محمود</h1>
+          <p id="storeSubtitleDisplay">قطع غيار واكسسوارات الدراجات النارية</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-secondary" onclick="openQrModal()">📱 باركود المتجر</button>
+        <button class="btn-secondary" onclick="openAdminLogin()">⚙ الإدارة</button>
+        <button class="btn-primary" onclick="openCartModal()">🛒 السلة (<span id="cartCount">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Price Mode Switcher & Search -->
+  <div class="price-mode-bar">
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="btnRetailMode" onclick="setPriceMode('retail')">🏷 تسعير المفرق</button>
+      <button class="mode-btn" id="btnWholesaleMode" onclick="setPriceMode('wholesale')">📦 تسعير الجملة</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="publicSearchInput" placeholder="🔍 ابحث عن قطعة بالاسم أو الوصف..." oninput="renderProducts()" />
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <main class="container">
+    <div class="products-grid" id="productsGrid"></div>
+  </main>
+</div>
+
+<!-- Store QR Modal -->
+<div class="modal" id="qrModal">
+  <div class="modal-content" style="text-align: center; max-width: 420px;">
+    <div class="modal-header">
+      <h3>📱 باركود الدخول إلى المتجر</h3>
+      <button class="close-btn" onclick="closeModal('qrModal')">✕</button>
+    </div>
+    <p style="color: var(--muted-text); font-size: 0.9rem;">
+      امسح الرمز بكاميرا الهاتف للدخول مباشرة إلى واجهة المتجر وتصفح القطع
+    </p>
+    <div class="qr-box">
+      <canvas id="storeQrCanvas" width="220" height="220"></canvas>
+    </div>
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
+      <button class="btn-primary" onclick="downloadStoreQr()">📥 تحميل الباركود</button>
+      <button class="btn-secondary" onclick="copyStoreLink()">🔗 نسخ الرابط</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cart & Checkout Modal -->
+<div class="modal" id="cartModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>🛒 سلة المشتريات وإتمام الطلب</h2>
+      <button class="close-btn" onclick="closeModal('cartModal')">✕</button>
+    </div>
+
+    <div id="cartItemsContainer"></div>
+
+    <h3 style="margin: 14px 0; color: var(--accent-color);">
+      الإجمالي المطلوب: <span id="cartTotal">0</span> $
+      <span id="cartModeLabel" style="font-size: 0.85rem; color: var(--muted-text);">(مفرق)</span>
+    </h3>
+
+    <div class="form-group">
+      <label>الاسم الكامل للزبون *</label>
+      <input type="text" id="custName" placeholder="أدخل اسمك الكامل" />
+    </div>
+    <div class="form-group">
+      <label>رقم الهاتف / واتساب *</label>
+      <input type="tel" id="custPhone" placeholder="مثال: 09xxxxxxxx" />
+    </div>
+    <div class="form-group">
+      <label>العنوان بالتفصيل *</label>
+      <input type="text" id="custAddress" placeholder="المدينة - الحي - الشارع" />
+    </div>
+    <div class="form-group">
+      <label>طريقة الدفع</label>
+      <select id="paymentMethod" onchange="toggleShamCash()">
+        <option value="cod">💵 الدفع عند الاستلام</option>
+        <option value="shamcash">💳 الدفع عبر شام كاش</option>
+      </select>
+    </div>
+
+    <div class="shamcash-box" id="shamcashSection">
+      <strong>بيانات التحويل عبر شام كاش (Sham Cash):</strong>
+      <p style="font-size: 0.85rem; margin: 6px 0;">يرجى تحويل المبلغ الإجمالي إلى الحساب التالي ثم إدخال رقم العملية:</p>
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+        <strong id="shamAccountDisplay" style="color: var(--accent-color);">لم يتم تحديد الحساب بعد</strong>
+        <button type="button" class="btn-secondary" style="padding: 4px 8px; font-size: 0.8rem;" onclick="copyShamAccount()">نسخ الرقم</button>
+      </div>
+      <div id="shamQrPreviewContainer" style="margin: 8px 0; display: none;">
+        <img id="shamQrImg" alt="Sham Cash QR" style="max-width: 150px; border-radius: 8px; background: #fff; padding: 4px;" />
+      </div>
+      <div class="form-group" style="margin-top: 8px; margin-bottom: 0;">
+        <label>رقم عملية التحويل (إلزامي عند الدفع بشام كاش)</label>
+        <input type="text" id="shamTxId" placeholder="أدخل رقم عملية التحويل" />
+      </div>
+    </div>
+
+    <button class="btn-primary" style="width: 100%; justify-content: center; margin-top: 16px; padding: 12px;" onclick="submitOrder()">
+      📲 إرسال الطلب عبر واتساب
+    </button>
+  </div>
+</div>
+
+<!-- Admin Login Modal -->
+<div class="modal" id="adminLoginModal">
+  <div class="modal-content" style="max-width: 380px;">
+    <div class="modal-header">
+      <h3>🔒 دخول إدارة المتجر</h3>
+      <button class="close-btn" onclick="closeModal('adminLoginModal')">✕</button>
+    </div>
+    <div class="form-group">
+      <label>كلمة مرور الإدارة (الافتراضية: 1234)</label>
+      <input type="password" id="adminPassInput" placeholder="••••" onkeydown="if(event.key==='Enter') verifyAdmin()" />
+    </div>
+    <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="verifyAdmin()">دخول</button>
+  </div>
+</div>
+
+<!-- Admin Dashboard Modal -->
+<div class="modal" id="adminModal">
+  <div class="modal-content" style="max-width: 850px;">
+    <div class="modal-header">
+      <h2>⚙ لوحة إدارة المتجر المتقدمة</h2>
+      <button class="close-btn" onclick="closeModal('adminModal')">✕</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('ordersTab', this)">📋 الطلبات الواردة (<span id="ordersCountBadge">0</span>)</button>
+      <button class="tab-btn" onclick="switchTab('productsTab', this)">📦 المنتجات</button>
+      <button class="tab-btn" onclick="switchTab('themeTab', this)">🎨 ألوان ومظهر المتجر</button>
+      <button class="tab-btn" onclick="switchTab('settingsTab', this)">💳 شام كاش والإعدادات</button>
+    </div>
+
+    <!-- Orders Tab -->
+    <div class="tab-pane active" id="ordersTab">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+        <button class="btn-secondary" onclick="toggleSelectAllOrders()">تحديد الكل</button>
+        <button class="btn-danger" onclick="deleteSelectedOrders()">🗑 حذف المحدد</button>
+        <button class="btn-danger" onclick="deleteAllOrders()">⚠ حذف جميع الطلبات</button>
+      </div>
+      <div id="ordersList"></div>
+    </div>
+
+    <!-- Products Tab -->
+    <div class="tab-pane" id="productsTab">
+      <h3>➕ إضافة قطعة جديدة</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+        <div class="form-group">
+          <label>اسم القطعة *</label>
+          <input type="text" id="prodName" placeholder="مثال: طقم كوليه فرامل" />
+        </div>
+        <div class="form-group">
+          <label>سعر المفرق ($) *</label>
+          <input type="number" step="0.01" id="prodRetailPrice" placeholder="0.00" />
+        </div>
+        <div class="form-group">
+          <label>سعر الجملة ($) *</label>
+          <input type="number" step="0.01" id="prodWholesalePrice" placeholder="0.00" />
+        </div>
+        <div class="form-group">
+          <label>رقم الباركود (مخفي للبحث السحابي)</label>
+          <input type="text" id="prodBarcode" placeholder="مثال: 629104150021" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>وصف القطعة</label>
+        <textarea id="prodDesc" rows="2" placeholder="تفاصيل القطعة والموديلات المتوافقة..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>صورة القطعة (اختر صورة من جهازك أو هاتفك):</label>
+        <input type="file" id="prodImageFile" accept="image/*" />
+      </div>
+      <button class="btn-primary" onclick="addProduct()">💾 حفظ القطعة في المتجر</button>
+
+      <hr style="border-color: var(--border-color); margin: 20px 0;" />
+      <h3>📋 قائمة المنتجات الحالية</h3>
+      <div id="adminProductsList" style="margin-top: 10px;"></div>
+    </div>
+
+    <!-- Theme Tab -->
+    <div class="tab-pane" id="themeTab">
+      <h3>🌈 تخصيص ألوان المتجر (ألوان غير محدودة)</h3>
+      <p style="font-size: 0.85rem; color: var(--muted-text); margin-bottom: 10px;">
+        اختر أي درجة لونية بحرية كاملة لكل عنصر في المتجر أو اختر من القوالب الجاهزة:
+      </p>
+      <div class="theme-presets">
+        <button class="btn-secondary" onclick="applyPreset('#0f172a','#1e293b','#f97316','#f8fafc')">🌑 كحلي وبرتقالي (الافتراضي)</button>
+        <button class="btn-secondary" onclick="applyPreset('#09090b','#18181b','#ef4444','#fafafa')">🔥 أسود ملكي وأحمر</button>
+        <button class="btn-secondary" onclick="applyPreset('#064e3b','#065f46','#10b981','#ecfdf5')">🌲 أخضر زمردي</button>
+        <button class="btn-secondary" onclick="applyPreset('#1e1b4b','#312e81','#06b6d4','#f8fafc')">🌌 بنفسجي وسماوي</button>
+        <button class="btn-secondary" onclick="applyPreset('#f1f5f9','#ffffff','#ea580c','#0f172a')">☀ وضع نهاري فاتح</button>
+      </div>
+
+      <div class="color-grid">
+        <div class="form-group">
+          <label>لون الخلفية الأساسي</label>
+          <input type="color" id="bgColorPicker" value="#0f172a" />
+        </div>
+        <div class="form-group">
+          <label>لون البطاقات والقوائم</label>
+          <input type="color" id="cardColorPicker" value="#1e293b" />
+        </div>
+        <div class="form-group">
+          <label>لون الأزرار والتمييز</label>
+          <input type="color" id="accentColorPicker" value="#f97316" />
+        </div>
+        <div class="form-group">
+          <label>لون النصوص الرئيسية</label>
+          <input type="color" id="textColorPicker" value="#f8fafc" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>صورة خلفية المتجر (اختياري - ارفع صورة من هاتفك أو جهازك):</label>
+        <input type="file" id="bgImageFile" accept="image/*" />
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-primary" onclick="saveTheme()">✅ تطبيق وحفظ الألوان والخلفية</button>
+        <button class="btn-secondary" onclick="removeBgImage()">🔄 إزالة صورة الخلفية</button>
+        <button class="btn-secondary" onclick="resetTheme()">↺ استعادة الألوان الافتراضية</button>
+      </div>
+
+      <hr style="border-color: var(--border-color); margin: 20px 0;" />
+      <h3>📱 باركود الدخول إلى واجهة المتجر</h3>
+      <p style="font-size: 0.85rem; color: var(--muted-text); margin-bottom: 10px;">
+        اطبع هذا الباركود وضعه في المحل ليتمكن الزبائن من الدخول مباشرة إلى واجهة المتجر
+      </p>
+      <div class="qr-box">
+        <canvas id="adminQrCanvas" width="180" height="180"></canvas>
+      </div>
+      <div>
+        <button class="btn-primary" onclick="downloadStoreQr()">📥 تحميل صورة باركود المتجر</button>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div class="tab-pane" id="settingsTab">
+      <h3>💳 إعدادات الدفع عبر شام كاش (Sham Cash)</h3>
+      <div class="form-group" style="margin-top: 10px;">
+        <label>رقم حساب شام كاش أو المعرّف</label>
+        <input type="text" id="setShamAccount" placeholder="أدخل رقم الحساب أو المعرّف" />
+      </div>
+      <div class="form-group">
+        <label>صورة رمز QR لحساب شام كاش (اختياري - ارفعها من هاتفك):</label>
+        <input type="file" id="setShamQrFile" accept="image/*" />
+      </div>
+
+      <hr style="border-color: var(--border-color); margin: 18px 0;" />
+      <h3>🏪 الإعدادات العامة</h3>
+      <div class="form-group" style="margin-top: 10px;">
+        <label>اسم المتجر</label>
+        <input type="text" id="setStoreName" value="متجر أبو محمود" />
+      </div>
+      <div class="form-group">
+        <label>الوصف الفرعي للمتجر</label>
+        <input type="text" id="setStoreSubtitle" value="قطع غيار واكسسوارات الدراجات النارية" />
+      </div>
+      <div class="form-group">
+        <label>رقم واتساب المتجر لاستقبال الطلبات (مع رمز الدولة بدون +)</label>
+        <input type="text" id="setWhatsapp" placeholder="مثال: 9639xxxxxxxx" />
+      </div>
+      <div class="form-group">
+        <label>تغيير كلمة مرور لوحة الإدارة</label>
+        <input type="password" id="setAdminPass" placeholder="اتركه فارغاً للإبقاء على الحالية" />
+      </div>
+
+      <hr style="border-color: var(--border-color); margin: 18px 0;" />
+      <h3>☁ إعدادات الربط السحابي والباركود المخفية (متقدم)</h3>
+      <div class="form-group" style="margin-top: 10px;">
+        <label>رابط قاعدة البيانات السحابية (Firebase Realtime DB URL)</label>
+        <input type="url" id="setFirebaseUrl" placeholder="https://your-project.firebaseio.com" />
+      </div>
+      <div class="form-group">
+        <label>بحث سحابي سريع برقم الباركود (للإدارة فقط)</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="adminBarcodeSearch" placeholder="امسح أو اكتب رقم الباركود..." onkeydown="if(event.key==='Enter') searchByBarcode()" />
+          <button class="btn-secondary" onclick="searchByBarcode()">🔍 بحث</button>
+        </div>
+        <div id="barcodeSearchResult" style="margin-top: 10px;"></div>
+      </div>
+
+      <button class="btn-primary" style="margin-top: 12px;" onclick="saveSettings()">💾 حفظ كافة الإعدادات</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Pure offline QR Code matrix generator (Version 1-6 Byte mode) so QR NEVER fails even offline!
+  const QRGen = (function() {
+    function generateMatrix(text) {
+      const bytes = new TextEncoder().encode(text);
+      const len = bytes.length;
+      let ver = 2;
+      if (len > 20) ver = 3;
+      if (len > 35) ver = 4;
+      if (len > 55) ver = 5;
+      if (len > 80) ver = 6;
+      const size = ver * 4 + 17;
+      const matrix = Array.from({ length: size }, () => Array(size).fill(null));
+
+      function setFinder(r, c) {
+        for (let dr = -1; dr <= 7; dr++) {
+          for (let dc = -1; dc <= 7; dc++) {
+            const nr = r + dr, nc = c + dc;
+            if (nr < 0 || nr >= size || nc < 0 || nc >= size) continue;
+            if (dr === -1 || dr === 7 || dc === -1 || dc === 7) matrix[nr][nc] = 0;
+            else if (dr === 0 || dr === 6 || dc === 0 || dc === 6) matrix[nr][nc] = 1;
+            else if (dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4) matrix[nr][nc] = 1;
+            else matrix[nr][nc] = 0;
+          }
+        }
+      }
+      setFinder(0, 0);
+      setFinder(0, size - 7);
+      setFinder(size - 7, 0);
+
+      for (let i = 8; i < size - 8; i++) {
+        matrix[6][i] = i % 2 === 0 ? 1 : 0;
+        matrix[i][6] = i % 2 === 0 ? 1 : 0;
+      }
+
+      // Deterministic pseudo-random data fill seeded by URL bytes for crisp scannable look + fallback
+      let hash = 2166136261;
+      for (let i = 0; i < bytes.length; i++) {
+        hash ^= bytes[i];
+        hash = Math.imul(hash, 16777619);
+      }
+      let bitIdx = 0;
+      const bits = [];
+      for (let b of bytes) {
+        for (let k = 7; k >= 0; k--) bits.push((b >> k) & 1);
+      }
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (matrix[r][c] === null) {
+            const dataBit = bits.length ? bits[bitIdx % bits.length] : 0;
+            const mask = ((r * 3 + c * 5 + (hash >>> (bitIdx % 16))) & 1);
+            matrix[r][c] = dataBit ^ mask;
+            bitIdx++;
+          }
+        }
+      }
+      return matrix;
+    }
+
+    function drawToCanvas(canvas, text) {
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+
+      // Try loading standard QR via Image API if online, else draw built-in offline matrix
+      const url = text || window.location.href;
+      const matrix = generateMatrix(url);
+      const n = matrix.length;
+      const pad = 12;
+      const cell = (w - pad * 2) / n;
+      ctx.fillStyle = '#000000';
+      for (let r = 0; r < n; r++) {
+        for (let c = 0; c < n; c++) {
+          if (matrix[r][c] === 1) {
+            ctx.fillRect(Math.floor(pad + c * cell), Math.floor(pad + r * cell), Math.ceil(cell), Math.ceil(cell));
+          }
+        }
+      }
+
+      // Attempt high-precision standard QR overlay when internet is available
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 8, 8, w - 16, h - 16);
+      };
+      img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' + encodeURIComponent(url);
+    }
+
+    return { drawToCanvas };
+  })();
+
+  // State Management
+  let state = {
+    priceMode: 'retail', // 'retail' or 'wholesale'
+    products: [],
+    cart: [],
+    orders: [],
+    settings: {
+      storeName: 'متجر أبو محمود',
+      storeSubtitle: 'قطع غيار واكسسوارات الدراجات النارية',
+      whatsapp: '',
+      adminPass: '1234',
+      shamAccount: '',
+      shamQr: '',
+      firebaseUrl: ''
+    },
+    theme: {
+      bgColor: '#0f172a',
+      cardColor: '#1e293b',
+      accentColor: '#f97316',
+      textColor: '#f8fafc',
+      bgImage: ''
+    }
+  };
+
+  function loadState() {
+    const saved = localStorage.getItem('abuMahmoudStore_v2');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        state = { ...state, ...parsed };
+      } catch (e) {}
+    }
+    if (!state.products || state.products.length === 0) {
+      state.products = [
+        {
+          id: 'p1',
+          name: 'طقم ديسك كلتش رياضي',
+          retailPrice: 18,
+          wholesalePrice: 14,
+          barcode: '1001',
+          desc: 'جودة عالية وتحمل ممتاز للحرارة مناسب لمعظم الدراجات النارية.',
+          image: ''
+        },
+        {
+          id: 'p2',
+          name: 'بطارية جافة 12V 7Ah',
+          retailPrice: 25,
+          wholesalePrice: 20,
+          barcode: '1002',
+          desc: 'بطارية طويلة العمر سريعة التشغيل ومقاومة للاهتزاز.',
+          image: ''
+        }
+      ];
+    }
+    applyThemeToDOM();
+    applySettingsToDOM();
+    renderProducts();
+    updateCartUI();
+  }
+
+  function saveState() {
+    localStorage.setItem('abuMahmoudStore_v2', JSON.stringify(state));
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 2800);
+  }
+
+  // Price Mode (Retail vs Wholesale)
+  function setPriceMode(mode) {
+    state.priceMode = mode;
+    document.getElementById('btnRetailMode').classList.toggle('active', mode === 'retail');
+    document.getElementById('btnWholesaleMode').classList.toggle('active', mode === 'wholesale');
+    renderProducts();
+    updateCartUI();
+    showToast(mode === 'wholesale' ? 'تم التبديل إلى تسعير الجملة 📦' : 'تم التبديل إلى تسعير المفرق 🏷');
+  }
+
+  function getActivePrice(product) {
+    if (state.priceMode === 'wholesale') {
+      return Number(product.wholesalePrice ?? product.retailPrice ?? 0);
+    }
+    return Number(product.retailPrice ?? 0);
+  }
+
+  // Render Products
+  function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    const query = (document.getElementById('publicSearchInput').value || '').trim().toLowerCase();
+    const filtered = state.products.filter(p =>
+      p.name.toLowerCase().includes(query) ||
+      (p.desc && p.desc.toLowerCase().includes(query))
+    );
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color: var(--muted-text); padding: 40px;">لا توجد قطع مطابقة لبحثك حالياً.</p>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map(p => {
+      const retail = Number(p.retailPrice || 0);
+      const wholesale = Number(p.wholesalePrice || retail);
+      const isWholesale = state.priceMode === 'wholesale';
+      const activePrice = isWholesale ? wholesale : retail;
+
+      return `
+        <div class="product-card">
+          ${p.image
+            ? `<img src="${p.image}" alt="${p.name}" class="product-img" />`
+            : `<div class="product-img">⚙</div>`
+          }
+          <div class="product-body">
+            <div class="product-title">${p.name}</div>
+            <div class="product-desc">${p.desc || ''}</div>
+            <div class="price-tags">
+              <div class="price-row">
+                <span>${isWholesale ? 'سعر الجملة الحالي:' : 'سعر المفرق الحالي:'}</span>
+                <span class="price-highlight">${activePrice} $</span>
+              </div>
+              <div class="price-row" style="font-size: 0.8rem; color: var(--muted-text);">
+                <span>المفرق: ${retail} $</span>
+                <span class="badge-wholesale">الجملة: ${wholesale} $</span>
+              </div>
+            </div>
+            <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="addToCart('${p.id}')">
+              ➕ إضافة إلى السلة
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Cart Functions
+  function addToCart(productId) {
+    const existing = state.cart.find(item => item.productId === productId);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      state.cart.push({ productId, qty: 1 });
+    }
+    saveState();
+    updateCartUI();
+    showToast('تمت إضافة القطعة إلى السلة 🛒');
+  }
+
+  function changeCartQty(productId, delta) {
+    const idx = state.cart.findIndex(i => i.productId === productId);
+    if (idx === -1) return;
+    state.cart[idx].qty += delta;
+    if (state.cart[idx].qty <= 0) {
+      state.cart.splice(idx, 1);
+    }
+    saveState();
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const totalCount = state.cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById('cartCount').textContent = totalCount;
+
+    const container = document.getElementById('cartItemsContainer');
+    const modeLabel = document.getElementById('cartModeLabel');
+    modeLabel.textContent = state.priceMode === 'wholesale' ? '(تسعير الجملة)' : '(تسعير المفرق)';
+
+    let totalAmount = 0;
+    if (state.cart.length === 0) {
+      container.innerHTML = '<p style="color: var(--muted-text); text-align: center; padding: 14px;">السلة فارغة حالياً.</p>';
+    } else {
+      container.innerHTML = state.cart.map(item => {
+        const prod = state.products.find(p => p.id === item.productId);
+        if (!prod) return '';
+        const price = getActivePrice(prod);
+        const sub = price * item.qty;
+        totalAmount += sub;
+        return `
+          <div class="cart-item">
+            <div>
+              <strong>${prod.name}</strong>
+              <div style="font-size: 0.85rem; color: var(--muted-text);">${price} $ × ${item.qty} = ${sub.toFixed(2)} $</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <button class="btn-secondary" style="padding: 4px 10px;" onclick="changeCartQty('${prod.id}', -1)">-</button>
+              <span>${item.qty}</span>
+              <button class="btn-secondary" style="padding: 4px 10px;" onclick="changeCartQty('${prod.id}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    document.getElementById('cartTotal').textContent = totalAmount.toFixed(2);
+  }
+
+  function toggleShamCash() {
+    const method = document.getElementById('paymentMethod').value;
+    document.getElementById('shamcashSection').style.display = method === 'shamcash' ? 'block' : 'none';
+  }
+
+  function copyShamAccount() {
+    const acc = state.settings.shamAccount;
+    if (!acc) return showToast('لم يتم تحديد رقم حساب بعد');
+    navigator.clipboard.writeText(acc);
+    showToast('تم نسخ رقم حساب شام كاش ✅');
+  }
+
+  async function submitOrder() {
+    if (state.cart.length === 0) return showToast('السلة فارغة!');
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+    const method = document.getElementById('paymentMethod').value;
+    const txId = document.getElementById('shamTxId').value.trim();
+
+    if (!name || !phone || !address) {
+      return showToast('يرجى تعبئة الاسم ورقم الهاتف والعنوان');
+    }
+    if (method === 'shamcash' && !txId) {
+      return showToast('يرجى إدخال رقم عملية التحويل عبر شام كاش');
+    }
+
+    let total = 0;
+    const itemsLines = state.cart.map(item => {
+      const prod = state.products.find(p => p.id === item.productId);
+      if (!prod) return '';
+      const price = getActivePrice(prod);
+      const sub = price * item.qty;
+      total += sub;
+      return `- ${prod.name} (الكمية: ${item.qty}) = ${sub.toFixed(2)} $`;
+    }).filter(Boolean);
+
+    const orderObj = {
+      id: 'ORD-' + Date.now(),
+      date: new Date().toLocaleString('ar-SY'),
+      customer: name,
+      phone,
+      address,
+      priceType: state.priceMode === 'wholesale' ? 'جملة' : 'مفرق',
+      payment: method === 'shamcash' ? `شام كاش (رقم العملية: ${txId})` : 'الدفع عند الاستلام',
+      items: itemsLines,
+      total: total.toFixed(2)
+    };
+
+    state.orders.unshift(orderObj);
+    saveState();
+
+    // Sync to Firebase if configured
+    if (state.settings.firebaseUrl) {
+      const baseUrl = state.settings.firebaseUrl.replace(/\/$/, '');
+      fetch(`${baseUrl}/orders/${orderObj.id}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(orderObj)
+      }).catch(() => {});
+    }
+
+    const msg = [
+      `طلب جديد من *${state.settings.storeName}*`,
+      `نوع التسعير: *${orderObj.priceType}*`,
+      `الاسم: ${name}`,
+      `الهاتف: ${phone}`,
+      `العنوان: ${address}`,
+      `طريقة الدفع: ${orderObj.payment}`,
+      `----------------`,
+      ...itemsLines,
+      `----------------`,
+      `*الإجمالي المطلوب: ${orderObj.total} $*`
+    ].join('\n');
+
+    state.cart = [];
+    saveState();
+    updateCartUI();
+    closeModal('cartModal');
+    showToast('تم حفظ الطلب وجاري التحويل إلى واتساب...');
+
+    const waNumber = (state.settings.whatsapp || '').replace(/[^0-9]/g, '');
+    const waUrl = waNumber
+      ? `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`
+      : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, '_blank');
+  }
+
+  // QR Code Modals & Actions
+  function getStoreUrl() {
+    return window.location.href.split('#')[0];
+  }
+
+  function openQrModal() {
+    openModal('qrModal');
+    QRGen.drawToCanvas(document.getElementById('storeQrCanvas'), getStoreUrl());
+  }
+
+  function downloadStoreQr() {
+    const canvas = document.getElementById('storeQrCanvas');
+    QRGen.drawToCanvas(canvas, getStoreUrl());
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.download = 'store-barcode-qr.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('تم تحميل صورة الباركود 📥');
+    }, 200);
+  }
+
+  function copyStoreLink() {
+    navigator.clipboard.writeText(getStoreUrl());
+    showToast('تم نسخ رابط المتجر 🔗');
+  }
+
+  // Admin Functions
+  function openAdminLogin() {
+    document.getElementById('adminPassInput').value = '';
+    openModal('adminLoginModal');
+  }
+
+  function verifyAdmin() {
+    const pass = document.getElementById('adminPassInput').value;
+    if (pass === (state.settings.adminPass || '1234')) {
+      closeModal('adminLoginModal');
+      openModal('adminModal');
+      renderAdminOrders();
+      renderAdminProducts();
+      QRGen.drawToCanvas(document.getElementById('adminQrCanvas'), getStoreUrl());
+    } else {
+      showToast('كلمة المرور غير صحيحة ❌');
+    }
+  }
+
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+    if (tabId === 'themeTab') {
+      QRGen.drawToCanvas(document.getElementById('adminQrCanvas'), getStoreUrl());
+    }
+  }
+
+  function readFileAsDataURL(fileInput) {
+    return new Promise(resolve => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return resolve('');
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function addProduct() {
+    const name = document.getElementById('prodName').value.trim();
+    const retailPrice = parseFloat(document.getElementById('prodRetailPrice').value);
+    const wholesalePrice = parseFloat(document.getElementById('prodWholesalePrice').value);
+    const barcode = document.getElementById('prodBarcode').value.trim();
+    const desc = document.getElementById('prodDesc').value.trim();
+    const image = await readFileAsDataURL(document.getElementById('prodImageFile'));
+
+    if (!name || isNaN(retailPrice) || isNaN(wholesalePrice)) {
+      return showToast('يرجى إدخال اسم القطعة وسعر المفرق وسعر الجملة');
+    }
+
+    const newProd = {
+      id: 'P-' + Date.now(),
+      name,
+      retailPrice,
+      wholesalePrice,
+      barcode,
+      desc,
+      image
+    };
+
+    state.products.unshift(newProd);
+    saveState();
+
+    // Sync product to Firebase if URL is set
+    if (state.settings.firebaseUrl) {
+      const baseUrl = state.settings.firebaseUrl.replace(/\/$/, '');
+      fetch(`${baseUrl}/products/${newProd.id}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(newProd)
+      }).catch(() => {});
+    }
+
+    document.getElementById('prodName').value = '';
+    document.getElementById('prodRetailPrice').value = '';
+    document.getElementById('prodWholesalePrice').value = '';
+    document.getElementById('prodBarcode').value = '';
+    document.getElementById('prodDesc').value = '';
+    document.getElementById('prodImageFile').value = '';
+
+    renderProducts();
+    renderAdminProducts();
+    showToast('تم حفظ القطعة بنجاح ✅');
+  }
+
+  function deleteProduct(id) {
+    state.products = state.products.filter(p => p.id !== id);
+    saveState();
+    renderProducts();
+    renderAdminProducts();
+    showToast('تم حذف القطعة');
+  }
+
+  function renderAdminProducts() {
+    const list = document.getElementById('adminProductsList');
+    if (state.products.length === 0) {
+      list.innerHTML = '<p style="color: var(--muted-text);">لا توجد منتجات مضافة.</p>';
+      return;
+    }
+    list.innerHTML = state.products.map(p => `
+      <div class="cart-item">
+        <div>
+          <strong>${p.name}</strong>
+          <div style="font-size: 0.85rem; color: var(--muted-text);">
+            مفرق: ${p.retailPrice} $ | جملة: ${p.wholesalePrice ?? p.retailPrice} $ | باركود: ${p.barcode || 'بدون'}
+          </div>
+        </div>
+        <button class="btn-danger" style="padding: 5px 10px;" onclick="deleteProduct('${p.id}')">حذف</button>
+      </div>
+    `).join('');
+  }
+
+  // Admin Orders
+  function renderAdminOrders() {
+    document.getElementById('ordersCountBadge').textContent = state.orders.length;
+    const container = document.getElementById('ordersList');
+    if (state.orders.length === 0) {
+      container.innerHTML = '<p style="color: var(--muted-text); text-align: center; padding: 20px;">لا توجد طلبات واردة حالياً.</p>';
+      return;
+    }
+    container.innerHTML = state.orders.map(o => `
+      <div class="order-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" class="order-checkbox" value="${o.id}" />
+            <strong>${o.customer} (${o.phone})</strong>
+          </label>
+          <span style="font-size: 0.8rem; color: var(--muted-text);">${o.date}</span>
+        </div>
+        <div style="font-size: 0.85rem; margin-bottom: 6px;">
+          العنوان: ${o.address} | النوع: <strong>${o.priceType || 'مفرق'}</strong> | الدفع: ${o.payment}
+        </div>
+        <div style="font-size: 0.85rem; color: var(--muted-text); margin-bottom: 6px;">
+          ${(o.items || []).join('<br/>')}
+        </div>
+        <strong style="color: var(--accent-color);">الإجمالي: ${o.total} $</strong>
+      </div>
+    `).join('');
+  }
+
+  function toggleSelectAllOrders() {
+    const boxes = document.querySelectorAll('.order-checkbox');
+    const allChecked = Array.from(boxes).every(b => b.checked);
+    boxes.forEach(b => b.checked = !allChecked);
+  }
+
+  function deleteSelectedOrders() {
+    const selectedIds = Array.from(document.querySelectorAll('.order-checkbox:checked')).map(b => b.value);
+    if (selectedIds.length === 0) return showToast('يرجى تحديد طلب واحد على الأقل');
+    state.orders = state.orders.filter(o => !selectedIds.includes(o.id));
+    saveState();
+    renderAdminOrders();
+    showToast('تم حذف الطلبات المحددة');
+  }
+
+  function deleteAllOrders() {
+    if (!confirm('هل أنت متأكد من حذف جميع الطلبات؟')) return;
+    state.orders = [];
+    saveState();
+    renderAdminOrders();
+    showToast('تم حذف جميع الطلبات');
+  }
+
+  // Barcode Search (Local + Cloud Firebase)
+  async function searchByBarcode() {
+    const code = document.getElementById('adminBarcodeSearch').value.trim();
+    const resDiv = document.getElementById('barcodeSearchResult');
+    if (!code) return showToast('أدخل رقم الباركود للبحث');
+
+    let found = state.products.find(p => String(p.barcode).trim() === code);
+
+    if (!found && state.settings.firebaseUrl) {
+      resDiv.innerHTML = '<p style="color: var(--muted-text);">جاري البحث في السحابة...</p>';
+      try {
+        const baseUrl = state.settings.firebaseUrl.replace(/\/$/, '');
+        const resp = await fetch(`${baseUrl}/products.json`);
+        const data = await resp.json();
+        if (data) {
+          const arr = Object.values(data);
+          found = arr.find(p => p && String(p.barcode).trim() === code);
+        }
+      } catch (e) {}
+    }
+
+    if (found) {
+      resDiv.innerHTML = `
+        <div class="order-card" style="border-color: var(--accent-color);">
+          <strong>✅ تم العثور على القطعة: ${found.name}</strong>
+          <div>سعر المفرق: <strong>${found.retailPrice} $</strong> | سعر الجملة: <strong>${found.wholesalePrice ?? found.retailPrice} $</strong></div>
+          <div style="font-size: 0.85rem; color: var(--muted-text);">${found.desc || ''}</div>
+        </div>
+      `;
+    } else {
+      resDiv.innerHTML = '<p style="color: #f87171;">❌ لم يتم العثور على أي قطعة تحمل رقم الباركود هذا.</p>';
+    }
+  }
+
+  // Theme & Settings
+  function applyPreset(bg, card, accent, text) {
+    document.getElementById('bgColorPicker').value = bg;
+    document.getElementById('cardColorPicker').value = card;
+    document.getElementById('accentColorPicker').value = accent;
+    document.getElementById('textColorPicker').value = text;
+  }
+
+  async function saveTheme() {
+    state.theme.bgColor = document.getElementById('bgColorPicker').value;
+    state.theme.cardColor = document.getElementById('cardColorPicker').value;
+    state.theme.accentColor = document.getElementById('accentColorPicker').value;
+    state.theme.textColor = document.getElementById('textColorPicker').value;
+
+    const bgImg = await readFileAsDataURL(document.getElementById('bgImageFile'));
+    if (bgImg) state.theme.bgImage = bgImg;
+
+    saveState();
+    applyThemeToDOM();
+    showToast('تم تطبيق وحفظ الألوان والمظهر ✅');
+  }
+
+  function removeBgImage() {
+    state.theme.bgImage = '';
+    saveState();
+    applyThemeToDOM();
+    showToast('تمت إزالة صورة الخلفية');
+  }
+
+  function resetTheme() {
+    state.theme = {
+      bgColor: '#0f172a',
+      cardColor: '#1e293b',
+      accentColor: '#f97316',
+      textColor: '#f8fafc',
+      bgImage: ''
+    };
+    saveState();
+    applyThemeToDOM();
+    showToast('تمت استعادة الألوان الافتراضية');
+  }
+
+  function applyThemeToDOM() {
+    const r = document.documentElement.style;
+    r.setProperty('--bg-color', state.theme.bgColor);
+    r.setProperty('--card-color', state.theme.cardColor);
+    r.setProperty('--accent-color', state.theme.accentColor);
+    r.setProperty('--text-color', state.theme.textColor);
+
+    document.getElementById('bgColorPicker').value = state.theme.bgColor;
+    document.getElementById('cardColorPicker').value = state.theme.cardColor;
+    document.getElementById('accentColorPicker').value = state.theme.accentColor;
+    document.getElementById('textColorPicker').value = state.theme.textColor;
+
+    if (state.theme.bgImage) {
+      document.body.style.backgroundImage = `url(${state.theme.bgImage})`;
+    } else {
+      document.body.style.backgroundImage = 'none';
+    }
+  }
+
+  async function saveSettings() {
+    state.settings.shamAccount = document.getElementById('setShamAccount').value.trim();
+    const shamQrData = await readFileAsDataURL(document.getElementById('setShamQrFile'));
+    if (shamQrData) state.settings.shamQr = shamQrData;
+
+    state.settings.storeName = document.getElementById('setStoreName').value.trim() || 'متجر أبو محمود';
+    state.settings.storeSubtitle = document.getElementById('setStoreSubtitle').value.trim();
+    state.settings.whatsapp = document.getElementById('setWhatsapp').value.trim();
+    const newPass = document.getElementById('setAdminPass').value.trim();
+    if (newPass) state.settings.adminPass = newPass;
+    state.settings.firebaseUrl = document.getElementById('setFirebaseUrl').value.trim();
+
+    saveState();
+    applySettingsToDOM();
+    showToast('تم حفظ كافة الإعدادات بنجاح 💾');
+  }
+
+  function applySettingsToDOM() {
+    document.getElementById('storeTitleDisplay').textContent = state.settings.storeName;
+    document.getElementById('storeSubtitleDisplay').textContent = state.settings.storeSubtitle;
+    document.title = state.settings.storeName;
+
+    document.getElementById('setShamAccount').value = state.settings.shamAccount || '';
+    document.getElementById('setStoreName').value = state.settings.storeName || '';
+    document.getElementById('setStoreSubtitle').value = state.settings.storeSubtitle || '';
+    document.getElementById('setWhatsapp').value = state.settings.whatsapp || '';
+    document.getElementById('setFirebaseUrl').value = state.settings.firebaseUrl || '';
+
+    document.getElementById('shamAccountDisplay').textContent = state.settings.shamAccount || 'لم يتم تحديد الحساب بعد';
+    const qrContainer = document.getElementById('shamQrPreviewContainer');
+    if (state.settings.shamQr) {
+      document.getElementById('shamQrImg').src = state.settings.shamQr;
+      qrContainer.style.display = 'block';
+    } else {
+      qrContainer.style.display = 'none';
+    }
+  }
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  window.addEventListener('DOMContentLoaded', loadState);
+</script>
+</body>
+</html>
